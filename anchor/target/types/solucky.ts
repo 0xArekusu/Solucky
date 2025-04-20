@@ -249,6 +249,10 @@ export type Solucky = {
         {
           "name": "tokenMetadataProgram",
           "address": "metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s"
+        },
+        {
+          "name": "rent",
+          "address": "SysvarRent111111111111111111111111111111111"
         }
       ],
       "args": []
@@ -317,6 +321,23 @@ export type Solucky = {
           }
         ]
       }
+    }
+  ],
+  "constants": [
+    {
+      "name": "name",
+      "type": "string",
+      "value": "\"Token Lottery Ticker #\""
+    },
+    {
+      "name": "symbol",
+      "type": "string",
+      "value": "\"TLT\""
+    },
+    {
+      "name": "uri",
+      "type": "string",
+      "value": "\"\""
     }
   ]
 };
