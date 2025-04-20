@@ -13,9 +13,9 @@ describe('Solucky', () => {
 
   const SoluckyKeypair = Keypair.generate()
 
-  it('Should initialize lottery', async () => {
+  it('Should initialize configuration', async () => {
     const initConfigTx = await program.methods
-      .initializeLottery(
+      .initializeConfig(
         new anchor.BN(0),
         new anchor.BN(1822712025),
         new anchor.BN(10000),

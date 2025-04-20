@@ -14,16 +14,16 @@ export type Solucky = {
   },
   "instructions": [
     {
-      "name": "initializeLottery",
+      "name": "initializeConfig",
       "discriminator": [
-        113,
-        199,
-        243,
-        247,
-        73,
-        217,
-        33,
-        11
+        208,
+        127,
+        21,
+        1,
+        194,
+        190,
+        196,
+        70
       ],
       "accounts": [
         {
@@ -74,22 +74,22 @@ export type Solucky = {
   ],
   "accounts": [
     {
-      "name": "lottery",
+      "name": "configuration",
       "discriminator": [
-        162,
-        182,
-        26,
-        12,
-        164,
-        214,
-        112,
-        3
+        192,
+        79,
+        172,
+        30,
+        21,
+        173,
+        25,
+        43
       ]
     }
   ],
   "types": [
     {
-      "name": "lottery",
+      "name": "configuration",
       "type": {
         "kind": "struct",
         "fields": [

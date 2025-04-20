@@ -9,14 +9,14 @@ pub mod solucky {
     use super::*;
 
 
-    pub fn initialize_lottery(
-      ctx: Context<InitializeLottery>,
+    pub fn initialize_config(
+      ctx: Context<InitializeConfig>,
       start_time: u64,
       end_time: u64,
       price: u64,
     ) -> Result<()>{
 
-      *ctx.accounts.lottery = Lottery {
+      *ctx.accounts.lottery = Configuration {
         authority: *ctx.accounts.payer.key,
         ticket_price: price,
         start_time: start_time,
@@ -32,7 +32,8 @@ pub mod solucky {
       // ctx.accounts.lottery.bump = ctx.bumps.lottery;
       // ctx.accounts.lottery.start_time = start_time;
       // ctx.accounts.lottery.end_time = end_time;
-      // ctx.accounts.lottery.ticket_price = *ctx.accounts.payer.key;
+      // ctx.accounts.lottery.ticket_price = price;
+      // ctx.accounts.lottery.authority = *ctx.accounts.payer.key;
       // ctx.accounts.lottery.reward_amount = 0;
       // ctx.accounts.lottery.total_tickets = 0;
       // ctx.accounts.lottery.randomness_account = Pubkey::default();
@@ -43,7 +44,7 @@ pub mod solucky {
 }
 
 #[derive(Accounts)]
-pub struct InitializeLottery<'info>{
+pub struct InitializeConfig<'info>{
 
   #[account(mut)]
   pub payer: Signer<'info>,
@@ -51,11 +52,11 @@ pub struct InitializeLottery<'info>{
   #[account(
     init, 
     payer = payer,
-    space = 8 + Lottery::INIT_SPACE,
+    space = 8 + Configuration::INIT_SPACE,
     seeds = [b"lottery".as_ref()],
     bump
   )]
-  pub lottery: Account<'info, Lottery>,
+  pub lottery: Account<'info, Configuration>,
 
   pub system_program: Program<'info, System>,
 
@@ -63,7 +64,7 @@ pub struct InitializeLottery<'info>{
 
 #[account]
 #[derive(InitSpace)]
-pub struct Lottery{
+pub struct Configuration{
 
   pub winner: u64,
   pub winner_claimed: bool,

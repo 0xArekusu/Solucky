@@ -8,16 +8,16 @@
   },
   "instructions": [
     {
-      "name": "initialize_lottery",
+      "name": "initialize_config",
       "discriminator": [
-        113,
-        199,
-        243,
-        247,
-        73,
-        217,
-        33,
-        11
+        208,
+        127,
+        21,
+        1,
+        194,
+        190,
+        196,
+        70
       ],
       "accounts": [
         {
@@ -68,22 +68,22 @@
   ],
   "accounts": [
     {
-      "name": "Lottery",
+      "name": "Configuration",
       "discriminator": [
-        162,
-        182,
-        26,
-        12,
-        164,
-        214,
-        112,
-        3
+        192,
+        79,
+        172,
+        30,
+        21,
+        173,
+        25,
+        43
       ]
     }
   ],
   "types": [
     {
-      "name": "Lottery",
+      "name": "Configuration",
       "type": {
         "kind": "struct",
         "fields": [
