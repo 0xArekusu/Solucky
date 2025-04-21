@@ -13,6 +13,8 @@ use anchor_spl::
 
 use anchor_spl::metadata::{
   create_metadata_accounts_v3, 
+  create_master_edition_v3, 
+  CreateMasterEditionV3,
   CreateMetadataAccountsV3,
   mpl_token_metadata::types::
   {
@@ -31,6 +33,8 @@ pub const URI: &str = "";
 
 #[program]
 pub mod solucky {
+
+    use anchor_spl::metadata::{sign_metadata, SignMetadata};
 
     use super::*;
 
@@ -83,6 +87,7 @@ pub mod solucky {
         1
       )?;
 
+
       msg!("Creating Metadata account");
       create_metadata_accounts_v3(
         CpiContext::new_with_signer(
@@ -91,8 +96,8 @@ pub mod solucky {
             metadata: ctx.accounts.metadata.to_account_info(),
             mint: ctx.accounts.collection_mint.to_account_info(),
             mint_authority: ctx.accounts.collection_mint.to_account_info(),
+            update_authority: ctx.accounts.collection_mint.to_account_info(),
             payer: ctx.accounts.payer.to_account_info(),
-            update_authority: ctx.accounts.system_program.to_account_info(),
             system_program: ctx.accounts.system_program.to_account_info(),
             rent: ctx.accounts.rent.to_account_info(),
           }, 
@@ -116,6 +121,39 @@ pub mod solucky {
         Some(CollectionDetails::V1 {size: 0})
       )?;
 
+
+      msg!("Creating Master Edition account");
+      create_master_edition_v3(
+        CpiContext::new_with_signer(
+          ctx.accounts.token_metadata_program.to_account_info(),
+          CreateMasterEditionV3{
+            payer: ctx.accounts.payer.to_account_info(),
+            mint: ctx.accounts.collection_mint.to_account_info(),
+            edition: ctx.accounts.master_edition.to_account_info(),
+            mint_authority: ctx.accounts.collection_mint.to_account_info(),
+            update_authority: ctx.accounts.collection_mint.to_account_info(),
+            metadata: ctx.accounts.metadata.to_account_info(),
+            token_program: ctx.accounts.token_program.to_account_info(),
+            system_program: ctx.accounts.system_program.to_account_info(),
+            rent: ctx.accounts.rent.to_account_info(),
+          },
+          &signer_seeds
+        ), 
+        Some(0)
+      )?;
+
+
+      msg!("Verifying collection");
+      sign_metadata(
+        CpiContext::new_with_signer(
+          ctx.accounts.token_metadata_program.to_account_info(), 
+          SignMetadata{
+            creator: ctx.accounts.collection_mint.to_account_info(),
+            metadata: ctx.accounts.metadata.to_account_info(),
+          },
+          &signer_seeds
+        )
+      )?;
 
       Ok(())
     }
