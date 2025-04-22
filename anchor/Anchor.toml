@@ -6,7 +6,7 @@ resolution = true
 skip-lint = false
 
 [programs.localnet]
-Solucky = "2JwsoU5RL9MpQvyaydghZfx32ijo49HiLMJAfutPMSEg"
+Solucky = "CV5CoU67oBUy1EnKbmbsGdx8QZDGCg8nry9Lad93G28C"
 
 [registry]
 url = "https://api.apr.dev"
